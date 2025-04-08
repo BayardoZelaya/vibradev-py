@@ -50,6 +50,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: GREETING
+              valueFrom:
+                configMapKeyRef:
+                  name: fastapi-cm
+                  key: GREETING
           livenessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
