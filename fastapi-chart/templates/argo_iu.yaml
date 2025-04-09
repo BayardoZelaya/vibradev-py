@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fastapi-app
+  name: vibradev-py
   namespace: argocd
   annotations:
     # List images to update; key can be arbitrary (here “fastapi-app”) mapping to 
