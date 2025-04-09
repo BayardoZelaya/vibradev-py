@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fastapi-app
+  namespace: argocd
+  annotations:
+    # List images to update; key can be arbitrary (here “fastapi-app”) mapping to 
+    # the fully qualified image name (without tag) from your registry.
+    argocd-image-updater.argoproj.io/image-list: "fastapi-app=us-central1-docker.pkg.dev/vibradev-dev/dev/fastapi-app"
+    # Specify the update strategy: can be "latest", "semver", etc.
+    argocd-image-updater.argoproj.io/update-strategy: latest
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/BayardoZelaya/vibradev-py.git"
+    path: ./fastapi-chart
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
