@@ -36,7 +36,7 @@ async def liveness_check():
     Liveness check endpoint to verify if the API is alive.
     """
     logger.info("Liveness check endpoint called.")
-    return {"status": "alive"}
+    return {"status": "ok"}
 
 @api_router.get("/ready")
 async def readiness_check():
@@ -44,7 +44,7 @@ async def readiness_check():
     Readiness check endpoint to verify if the API is ready to serve requests.
     """
     logger.info("Readiness check endpoint called.")
-    return {"status": "ready"}
+    return {"status": "ok"}
 
 app = FastAPI(title = "Gym Chatbot Agent")
 app.include_router(api_router, prefix="/api/v1", tags=["v1"])
