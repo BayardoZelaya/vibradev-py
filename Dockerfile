@@ -1,12 +1,26 @@
 #create docker file for fastapi
-FROM python:3.13-slim
+FROM python:3.13.3-slim
 
-WORKDIR /code
+WORKDIR /app
 
-COPY requirements.txt /code/requirements.txt
+RUN apt-get update && apt-get install -y build-essential libpq-dev && \
+    pip install --upgrade pip && \
+    pip install uv && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY pyproject.toml .
 
-COPY . /code
+RUN uv venv && \
+    . .venv/bin/activate && \
+    uv pip install -e .
 
-CMD ["fastapi", "run", "main.py", "--port", "8080"]
+COPY . .
+
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
+
+RUN mkdir -p app/logs
+
+EXPOSE 8080
+
+CMD ["fastapi", "run", "api/v1/api.py", "--port", "8080"]
