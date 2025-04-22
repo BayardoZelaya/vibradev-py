@@ -46,15 +46,8 @@ spec:
               protocol: TCP
           {{- with .Values.livenessProbe }}
           env:
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: GREETING
-              valueFrom:
-                configMapKeyRef:
-                  name: fastapi-cm
-                  key: GREETING
+            - name: APP_VERSION
+              value: {{ .Chart.AppVersion }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
