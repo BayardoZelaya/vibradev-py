@@ -47,7 +47,7 @@ spec:
           {{- with .Values.livenessProbe }}
           env:
             - name: APP_VERSION
-              value: "{{ default .Chart.AppVersion .Values.image.tag }}"
+              value: "{{ .Values.image.tag | default .Chart.AppVersion }}"
           livenessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
