@@ -22,4 +22,4 @@ USER appuser
 
 RUN mkdir -p app/logs
 
-CMD ["fastapi", "run", "app/api/v1/api.py", "--port", "8080"]
+CMD ["fastapi", "run", "app/api/v1/api.py", "--port", "8080"]   
