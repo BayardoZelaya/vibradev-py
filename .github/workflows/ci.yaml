@@ -46,8 +46,8 @@ jobs:
       - name: Bump version in Dockerfile
         run: |
           TAG=${GITHUB_REF#refs/tags/}
-          yq -i ".version = \"${TAG}\" | .appVersion = \"${TAG}\"" fastapi-chart/Chart.yaml
-          yq -i ".image.tag = \"${TAG}\"" fastapi-chart/values.yaml
+          yq -y -i ".version = \"${TAG}\" | .appVersion = \"${TAG}\"" fastapi-chart/Chart.yaml
+          yq -y -i ".image.tag = \"${TAG}\"" fastapi-chart/values.yaml
       
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
